@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poderes Para Aprendedores --- Gimnasia Para Tu Cerebro (Presentación)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes blink-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.03); }
+        }
+        .animate-blink {
+            animation: blink-slow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 1.5s infinite;
+        }
+        @keyframes flash-red {
+            0%, 100% { opacity: 1; border-color: #ef4444; background-color: rgba(239, 68, 68, 0.15); }
+            50% { opacity: 0.4; border-color: #b91c1c; background-color: rgba(185, 28, 28, 0.3); }
+        }
+        .animate-flash-red {
+            animation: flash-red 1s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-full bg-emerald-950 text-slate-900 flex flex-col font-sans selection:bg-emerald-600 selection:text-white overflow-hidden">
+
+    <header class="bg-emerald-900/95 backdrop-blur-md border-b border-emerald-700/50 px-6 py-4 shrink-0 flex flex-col md:flex-row items-center justify-between shadow-lg text-white gap-3">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-tr from-emerald-400 to-teal-300 p-3 rounded-2xl text-emerald-950 shadow-md animate-blink font-extrabold text-xl">
+                PPA
+            </div>
+            <div>
+                <h1 class="text-lg font-extrabold tracking-tight text-white">Poderes Para Apren<span class="underline decoration-2 underline-offset-4">dores</span> (trabajadores) (Gimnasia Para Tu Cerebro)</h1>
+                <p class="text-sm text-emerald-200 font-bold">Gregorio Gómez Pérez</p>
+            </div>
+        </div>
+
+        <!-- Big Red Digital Clock -->
+        <div class="flex items-center gap-2 bg-slate-950/80 px-5 py-2 rounded-2xl border-2 border-red-600 shadow-[0_0_15px_rgba(239,68,68,0.4)]">
+            <svg class="w-6 h-6 text-red-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span id="live-digital-clock" class="font-mono text-2xl md:text-3xl font-black tracking-widest text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]">00:00:00</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <div class="text-sm font-mono bg-emerald-800 px-4 py-2 rounded-xl border border-emerald-600 text-emerald-100 shadow-inner font-bold">
+                Diapositiva <span id="current-slide-num" class="font-extrabold text-emerald-300 text-base">1</span> / <span id="total-slides-num">10</span>
+            </div>
+            <button onclick="toggleFullscreen()" class="bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-2 border border-emerald-500 shadow-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                Pantalla Completa
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full h-full mx-auto p-2 md:p-4 flex flex-col justify-center items-center overflow-hidden">
+        
+        <!-- Slide Workspace Frame - Maximized width and height with larger text sizing -->
+        <div id="slide-container" class="w-full h-full max-w-none max-h-none bg-gradient-to-br from-[#e6f4ea] via-[#d4ede0] to-[#c1e5d2] border-4 border-emerald-600/60 rounded-3xl shadow-2xl p-6 md:p-10 flex flex-col justify-between relative overflow-y-auto transition-all duration-300">
+            <!-- Dynamic Slide Content Injection -->
+        </div>
+
+        <!-- Navigation Controls Footer -->
+        <div class="w-full max-w-7xl mt-3 flex items-center justify-between px-2 shrink-0">
+            <button onclick="prevSlide()" id="prev-btn" class="px-8 py-3 bg-emerald-900 hover:bg-emerald-800 text-white font-extrabold text-base rounded-2xl border border-emerald-700 transition flex items-center gap-2 disabled:opacity-35 disabled:cursor-not-allowed shadow-lg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                Anterior
+            </button>
+
+            <div id="dots-container" class="flex items-center gap-2 overflow-x-auto max-w-xl py-1">
+                <!-- Dynamically injected navigation dots -->
+            </div>
+
+            <button onclick="nextSlide()" id="next-btn" class="px-9 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-base rounded-2xl transition shadow-xl shadow-emerald-900/20 flex items-center gap-2">
+                Siguiente
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        let currentSlide = 0;
+
+        const slides = [
+            // 0: Portada
+            {
+                type: "cover",
+                tag: "Gimnasia para tu Cerebro",
+                title: 'Poderes Para Apren<span class="underline decoration-2 underline-offset-4">dores</span> (trabajadores)',
+                subtitle: "El aprendizaje como una gimnasia mental para fortalecer la inteligencia humana frente a la inteligencia artificial.",
+                author: "Gregorio Gómez Pérez",
+                publisher: "Tetralogía P.P.A."
+            },
+            // 1: Índice
+            {
+                type: "index",
+                tag: "Estructura de la Obra",
+                title: "Índice General de los Poderes",
+                subtitle: "Seis palancas clave para transformar el rendimiento académico y laboral.",
+                items: [
+                    { num: "01", title: "Efecto Concierto", desc: "Preparación previa y conocimientos previos (Zona de Desarrollo Próximo)" },
+                    { num: "02", title: "Efecto Cine", desc: "Silencio respetuoso y miradas de comunicación no verbal" },
+                    { num: "03", title: "Efecto Periodista", desc: "Actitud proactiva, preguntas relevantes y toma de notas" },
+                    { num: "04", title: "Efecto Tiempo (Bi.S.A. y S.O.L.)", desc: "Postura ergonómica, silencio y gestión estricta del tiempo" },
+                    { num: "05", title: "Efecto Desayuno", desc: "Combustible nutricional matinal para optimizar el rendimiento cognitivo" },
+                    { num: "06", title: "Efecto 'Tonto'", desc: "Conciencia sobre el aprovechamiento total de las 6 horas escolares" },
+                    { num: "07", title: "Conclusión: De 'Curso' a 'Equipo' y Delegado", desc: "El aula como equipo, votación a mano alzada y rol del delegado" }
+                ]
+            },
+            // 2: Efecto Concierto
+            {
+                type: "content",
+                tag: "Poder 1 — CO",
+                title: "Efecto Concierto: Preparación Previa",
+                subtitle: "Llevar la lección leída para un aprendizaje óptimo",
+                bullets: [
+                    "Analogía musical: Un concierto se disfruta mucho más cuando se conoce la letra de las canciones.",
+                    "Zona de Desarrollo Próximo (Vygotsky): Construir nuevos saberes sobre bases firmes ya preparadas.",
+                    "Elimina la necesidad de pasar horas intentando descifrar lo que no se entendió en clase.",
+                    "Permite realizar preguntas profundas y enriquecer el debate en el aula.",
+                    "Aplica tanto para alumnos en el instituto como para trabajadores en proyectos profesionales."
+                ]
+            },
+            // 3: Efecto Cine
+            {
+                type: "content",
+                tag: "Poder 2 — CI",
+                title: "Efecto Cine: Silencio y Respeto",
+                subtitle: "Comunicación no verbal y respeto mutuo en el aula",
+                bullets: [
+                    "Inspirado en el comportamiento cívico de los espectadores en una sala de cine oscura.",
+                    "Uso de miradas de comunicación sutiles para indicar amablemente a los compañeros que guarden silencio.",
+                    "Fomento profundo del diálogo, la empatía y la consideración hacia el profesor y los compañeros.",
+                    "Garantiza una participación equitativa y ordenada de todos los estudiantes.",
+                    "Crea un ambiente de aprendizaje colaborativo, armonioso y enfocado."
+                ]
+            },
+            // 4: Efecto Periodista
+            {
+                type: "content",
+                tag: "Poder 3 — PE",
+                title: "Efecto Periodista: Actitud Proactiva",
+                subtitle: "Como un periodista en rueda de prensa permanente",
+                bullets: [
+                    "Mantener una actitud activa, curiosa y comprometida durante cada sesión lectiva.",
+                    "Investigar previamente la información clave antes de acudir a clase.",
+                    "Tomar notas organizadas y precisas para facilitar el repaso y consolidación.",
+                    "Formular preguntas pertinentes que estimulen el pensamiento crítico y la retención.",
+                    "Construye una relación cercana y enriquecedora con el docente."
+                ]
+            },
+            // 5: Efecto Tiempo
+            {
+                type: "content",
+                tag: "Poder 4 — TI",
+                title: "Efecto Tiempo: Bi.S.A. y S.O.L.",
+                subtitle: "Optimización y conciencia del recurso más valioso",
+                bullets: [
+                    "Reloj visible en el aula: El tiempo es un recurso finito que no debe desperdiciarse.",
+                    "Bi (Bien sentado): Postura ergonómica correcta, espalda apoyada, material listo y bolígrafo en mano.",
+                    "S (Silencio): Atención plena para escuchar al profesor sin distracciones acústicas.",
+                    "A (Atención): Compromiso cognitivo activo con la explicación en curso.",
+                    "S.O.L. (Valoración del tiempo): Evitar llevar trabajo innecesario a casa realizando las tareas en el centro."
+                ]
+            },
+            // 6: Efecto Desayuno
+            {
+                type: "content",
+                tag: "Poder 5 — DE",
+                title: "Efecto Desayuno: Combustible Mental",
+                subtitle: "Nutrición adecuada para encender el motor cognitivo",
+                bullets: [
+                    "Metáfora del motor: El cerebro necesita combustible de calidad por la mañana para funcionar óptimamente.",
+                    "Aumento de la energía, estado de ánimo estable y reducción de la fatiga matinal.",
+                    "Mejora sustancial de la concentración, la memoria y la capacidad de resolución de problemas.",
+                    "Establece hábitos de vida saludables desde edades tempranas en los estudiantes.",
+                    "Conexión directa entre nutrición equilibrada, salud física y rendimiento escolar superior."
+                ]
+            },
+            // 7: Efecto Tonto
+            {
+                type: "content",
+                tag: "Poder 6 — TO",
+                title: "Efecto 'Tonto': Aprovechamiento Total",
+                subtitle: "Gestión consciente de las 6 horas lectivas matinales",
+                bullets: [
+                    "Término provocativo y audaz utilizado como llamada de atención y espejo reflexivo.",
+                    "Define la inacción o el desperdicio de las valiosas horas de clase como una oportunidad perdida.",
+                    "Rompe la monotonía del aula y despierta de inmediato la atención del alumnado.",
+                    "Promueve la responsabilidad personal: los estudiantes son los arquitectos de su propio aprendizaje.",
+                    "Evita el esfuerzo extenuante de tener que recuperar materias por la tarde por no haber aprovechado la mañana."
+                ]
+            },
+            // 8: Conclusión
+            {
+                type: "conclusion-team",
+                tag: "Conclusión de la Obra",
+                title: "De 'Curso' a 'Equipo': El Poder de la Unión",
+                subtitle: "Votación a mano alzada y el papel fundamental del delegado en el éxito del aula",
+                bullets: [
+                    "<b>1. Comprensión a través del deporte:</b> Los alumnos dominan el concepto de equipo (misma camiseta, ayuda mutua, ir a una por la misma meta).",
+                    "<b>2. Curso vs. Equipo:</b> 'Curso' suena a burocracia y sentarse juntos; 'Equipo' implica cooperar y aprender juntos sin competir entre compañeros.",
+                    "<b>3. Unión y cero exclusión:</b> Sentido de pertenencia que mejora el clima del aula y reduce el acoso o rechazo, protegiéndonos entre todos.",
+                    "<b>4. Coste Cero:</b> No requiere papeles ni dinero, solo un cambio en la forma de hablar y relacionarnos en el día a día.",
+                    "<b>Decisión Participativa:</b> Se puede proponer a los alumnos mediante votación a mano alzada en clase, vinculándolo directamente con la elección del delegado, cuya misión principal debe ser intentar que la clase funcione y avance unida."
+                ],
+                links: [
+                    { name: "Amazon", url: "https://amzn.to/3bNPfwH" }
+                ]
+            }
+        ];
+
+        function renderSlide() {
+            const container = document.getElementById('slide-container');
+            const slide = slides[currentSlide];
+            
+            document.getElementById('current-slide-num').textContent = currentSlide + 1;
+            document.getElementById('total-slides-num').textContent = slides.length;
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+
+            updateDots();
+
+            container.innerHTML = '';
+
+            const footerBrand = `
+                <div class="mt-3 pt-3 border-t-2 border-emerald-900/20 flex justify-between items-center text-sm font-extrabold text-emerald-950 shrink-0">
+                    <span class="animate-blink bg-emerald-600 text-white px-4 py-1.5 rounded-xl shadow-md">P.P.A. — Gimnasia Para Tu Cerebro</span>
+                    <span>Gregorio Gómez Pérez</span>
+                </div>
+            `;
+
+            if (slide.type === 'cover') {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center text-center my-auto space-y-4 w-full">
+                        
+                        <!-- Flashing Red Box for EQUIPO D.I.E.G.O. and CO.CI.PE.TI.DE.TO -->
+                        <div class="w-full max-w-4xl bg-red-950/20 border-4 border-red-600 rounded-2xl p-4 shadow-[0_0_25px_rgba(239,68,68,0.5)] animate-flash-red flex flex-col items-center justify-center">
+                            <span class="text-lg md:text-2xl font-black tracking-widest text-red-600 drop-shadow-[0_0_8px_rgba(239,68,68,0.9)] uppercase">EQUIPO D.I.E.G.O.</span>
+                            <span class="text-sm md:text-lg font-black tracking-wider text-red-700 mt-1">CO.CI.PE.TI.DE.TO.</span>
+                        </div>
+
+                        <!-- Three Pillar Icons with respective mnemonics -->
+                        <div class="grid grid-cols-3 gap-3 md:gap-6 w-full max-w-5xl px-2">
+                            <!-- Sociedad Icon -->
+                            <div class="bg-white/95 border-2 border-emerald-600/40 p-4 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                                <div class="bg-gradient-to-tr from-amber-500 to-yellow-400 p-3 rounded-2xl text-emerald-950 shadow-md font-extrabold text-2xl mb-1.5">
+                                    🌐
+                                </div>
+                                <span class="text-sm md:text-base font-extrabold text-emerald-950 uppercase tracking-wider">Sociedad</span>
+                                <span class="text-xs font-bold text-emerald-800 mt-1 bg-emerald-100 px-3 py-1 rounded-xl">SO.PA.EM.JU.DO</span>
+                            </div>
+
+                            <!-- Instituto Icon -->
+                            <div class="bg-white/95 border-2 border-emerald-600/40 p-4 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                                <div class="bg-gradient-to-tr from-amber-500 to-yellow-400 p-3 rounded-2xl text-emerald-950 shadow-md font-extrabold text-2xl mb-1.5">
+                                    🏫
+                                </div>
+                                <span class="text-sm md:text-base font-extrabold text-emerald-950 uppercase tracking-wider">Instituto</span>
+                                <span class="text-xs font-bold text-emerald-800 mt-1 bg-emerald-100 px-3 py-1 rounded-xl">GRA.P.E.ESA.HABAS</span>
+                            </div>
+
+                            <!-- Profesores Icon -->
+                            <div class="bg-white/95 border-2 border-emerald-600/40 p-4 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                                <div class="bg-gradient-to-tr from-amber-500 to-yellow-400 p-3 rounded-2xl text-emerald-950 shadow-md font-extrabold text-2xl mb-1.5">
+                                    👩‍🏫
+                                </div>
+                                <span class="text-sm md:text-base font-extrabold text-emerald-950 uppercase tracking-wider">Profesores</span>
+                                <span class="text-xs font-bold text-emerald-800 mt-1 bg-emerald-100 px-3 py-1 rounded-xl">VE.O.O.CO.CO</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 w-full bg-emerald-900/5 p-4 rounded-3xl border border-emerald-600/20 shadow-inner">
+                            <span class="text-sm font-extrabold uppercase tracking-widest px-5 py-1.5 rounded-full bg-emerald-600 text-white shadow-md animate-pulse-subtle">${slide.tag}</span>
+                            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-emerald-950">${slide.title}</h2>
+                            <p class="text-sm md:text-base text-emerald-900 font-extrabold max-w-4xl mx-auto uppercase tracking-wide">APRENDER ES GIMNASIA PARA TU CEREBRO</p>
+                        </div>
+
+                        <div class="pt-2 border-t border-emerald-900/20 w-full max-w-xl flex flex-col items-center gap-1">
+                            <span class="text-base font-extrabold text-emerald-950">${slide.author}</span>
+                            <span class="text-sm font-bold text-emerald-800">${slide.publisher}</span>
+                        </div>
+                    </div>
+                    ${footerBrand}
+                `;
+            } else if (slide.type === 'index') {
+                container.innerHTML = `
+                    <div class="flex flex-col h-full justify-between">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm">${slide.tag}</span>
+                                <span class="text-sm font-mono font-bold text-emerald-900 animate-blink">Diapositiva ${currentSlide + 1} / ${slides.length}</span>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-emerald-950">${slide.title}</h2>
+                            <p class="text-sm md:text-base text-emerald-900 font-bold">${slide.subtitle}</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-3 overflow-y-auto max-h-[55vh]">
+                            ${slide.items.map(item => `
+                                <div onclick="goToSlide(${parseInt(item.num)})" class="bg-white/95 border-2 border-emerald-600/40 hover:border-emerald-700 p-4 rounded-2xl transition cursor-pointer flex items-start gap-4 shadow-md group">
+                                    <span class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-extrabold font-mono flex items-center justify-center text-sm shrink-0 group-hover:bg-emerald-900 transition animate-blink">${item.num}</span>
+                                    <div>
+                                        <h4 class="text-sm md:text-base font-extrabold text-emerald-950 group-hover:text-emerald-700 transition">${item.title}</h4>
+                                        <p class="text-xs md:text-sm text-slate-700 font-medium line-clamp-1 mt-1">${item.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="text-sm font-bold text-emerald-950 text-center bg-emerald-200/80 py-2.5 rounded-2xl border border-emerald-500/40 shadow-sm">Haz clic en cualquier número del índice para saltar directamente a su diapositiva.</div>
+                    </div>
+                    ${footerBrand}
+                `;
+            } else if (slide.type === 'content') {
+                container.innerHTML = `
+                    <div class="flex flex-col h-full justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm">${slide.tag}</span>
+                                <span class="text-sm font-mono font-bold text-emerald-900 animate-blink">Diapositiva ${currentSlide + 1} / ${slides.length}</span>
+                            </div>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-emerald-950">${slide.title}</h2>
+                            <p class="text-sm md:text-lg text-emerald-900 font-extrabold">${slide.subtitle}</p>
+                        </div>
+                        <div class="my-auto space-y-3 py-3 overflow-y-auto max-h-[58vh]">
+                            ${slide.bullets.map(b => `
+                                <div class="bg-white/95 border-2 border-emerald-600/40 p-4 rounded-2xl flex items-start gap-4 shadow-md">
+                                    <svg class="w-6 h-6 text-emerald-600 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7"/></svg>
+                                    <p class="text-sm md:text-lg text-slate-900 font-bold leading-relaxed">${b}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ${footerBrand}
+                `;
+            } else if (slide.type === 'conclusion-team') {
+                container.innerHTML = `
+                    <div class="flex flex-col h-full justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm">${slide.tag}</span>
+                                <span class="text-sm font-mono font-bold text-emerald-900 animate-blink">Diapositiva ${currentSlide + 1} / ${slides.length}</span>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-emerald-950">${slide.title}</h2>
+                            <p class="text-sm md:text-base text-emerald-900 font-extrabold">${slide.subtitle}</p>
+                        </div>
+                        <div class="my-auto space-y-2.5 py-2 overflow-y-auto max-h-[52vh] pr-1">
+                            ${slide.bullets.map((b, idx) => `
+                                <div class="bg-white/95 border-2 border-emerald-600/40 p-3.5 rounded-2xl flex items-start gap-4 shadow-md">
+                                    <span class="w-7 h-7 rounded-xl bg-emerald-600 text-white font-extrabold font-mono flex items-center justify-center text-sm shrink-0 mt-1 animate-blink">${idx + 1}</span>
+                                    <p class="text-sm md:text-base text-slate-900 font-bold leading-relaxed">${b}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-3 bg-white/95 border-2 border-emerald-600/40 p-3.5 rounded-2xl shadow-md shrink-0">
+                            <span class="text-sm md:text-base font-extrabold text-emerald-950">Obra oficial de Gregorio Gómez Pérez:</span>
+                            <div class="flex gap-3">
+                                ${slide.links.map(l => `
+                                    <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-md flex items-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                        ${l.name}
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    ${footerBrand}
+                `;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+            }
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                currentSlide = index;
+                renderSlide();
+            }
+        }
+
+        function updateDots() {
+            const container = document.getElementById('dots-container');
+            container.innerHTML = '';
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.className = `h-3.5 rounded-full transition-all ${idx === currentSlide ? 'w-12 bg-emerald-600 shadow-md animate-blink' : 'w-3.5 bg-emerald-800/40 hover:bg-emerald-700'}`;
+                dot.onclick = () => goToSlide(idx);
+                container.appendChild(dot);
+            });
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenEnabled) {
+                console.warn("Fullscreen is not supported or allowed in this iframe environment.");
+                return;
+            }
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.info("Fullscreen request bypassed due to permissions policy.");
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(err => {});
+                }
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const clockElement = document.getElementById('live-digital-clock');
+            if (clockElement) {
+                clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                prevSlide();
+            }
+        });
+
+        window.onload = function() {
+            renderSlide();
+            updateClock();
+            setInterval(updateClock, 1000);
+        };
+    </script>
+
+</body>
+</html>
